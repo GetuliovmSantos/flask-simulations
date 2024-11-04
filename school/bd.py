@@ -81,3 +81,11 @@ class BD:
 
         return turmas
 
+    def salvarTurma(self, loginUsuario, nomeTurma, periodoTurma):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(f"INSERT INTO turmas (loginUsuario, nomeTurma, periodoTurma) VALUES ('{loginUsuario}', '{nomeTurma}', '{periodoTurma}')")
+        self._connection.commit()
+        cursor.close()
+        self.close()
+        return {"success": "Turma adicionada com sucesso"}
