@@ -7,7 +7,7 @@ USE `school-flask`;
 
 -- Tabela: usuarios
 CREATE TABLE IF NOT EXISTS `school-flask`.`usuarios` (
-  `loginUsuario` INT NOT NULL,
+  `loginUsuario` VARCHAR(15) NOT NULL,
   `nomeUsuario` VARCHAR(45) NOT NULL,
   `senhaUsuario` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`loginUsuario`))
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `school-flask`.`turmas` (
   `nomeTruma` VARCHAR(45) NULL,
   `periodo` CHAR(1) NULL,
   `turmascol` VARCHAR(45) NULL,
-  `loginUsuario` INT NOT NULL,
+  `loginUsuario` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`codTurma`),
   FOREIGN KEY (`loginUsuario`)
     REFERENCES `school-flask`.`usuarios` (`loginUsuario`)
