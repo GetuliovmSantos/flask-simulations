@@ -98,7 +98,7 @@ class BD:
         cursor.close()
         self.close()
         return {"success": "Turma adicionada com sucesso"}
-    
+
     def excluirTurma(self, codTurma):
         self.connect()
         cursor = self._connection.cursor()
@@ -107,3 +107,19 @@ class BD:
         cursor.close()
         self.close()
         return {"success": "Turma excluída com sucesso"}
+
+    def salvarAtividade(
+        self, nomeAtividade, descricaoAtividade, dataEntrega, pesoAtividade, codTurma
+    ):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(
+            f"""
+            INSERT INTO atividades (nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade, codTurma)
+            VALUES ('{nomeAtividade}', '{descricaoAtividade}', '{dataEntrega}', '{pesoAtividade}', {codTurma})
+        """
+        )
+        self._connection.commit()
+        cursor.close()
+        self.close()
+        return {"success": "Atividade adicionada com sucesso"}

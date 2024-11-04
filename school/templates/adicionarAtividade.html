@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <!-- Metadados da página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Inclusão do Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-400 flex items-center justify-center flex-col">
+    <h1 class="text-5xl font-bold my-5">Adicionar Tarefa</h1>
+
+    <div id="containerTurmas" class="bg-white my-10 w-max py-5 px-10 border border-black rounded-lg">
+        <form action="/salvarAtividade/{{codTurma}}" method="POST">
+            <div class="flex flex-col">
+                <label for="nomeAtividade" class="text-2xl font-bold">Nome da Atividade</label>
+                <input type="text" name="nomeAtividade" id="nomeAtividade" class="border border-black rounded-lg p-1">
+            </div>
+            <div class="flex flex-col mt-5">
+                <label for="descricaoAtividade" class="text-2xl font-bold">Descrição da Atividade</label>
+                <textarea name="descricaoAtividade" id="descricaoAtividade"
+                    class="border border-black rounded-lg p-1"></textarea>
+            </div>
+            <div class="flex flex-col mt-5">
+                <label for="dataAtividade" class="text-2xl font-bold">Data de Entrega</label>
+                <input type="date" name="dataAtividade" id="dataAtividade" class="border border-black rounded-lg p-1">
+            </div>
+            <div class="flex flex-col mt-5">
+                <label for="pesoAtividade" class="text-2xl font-bold">Peso da Atividade</label>
+                <input type="number" name="pesoAtividade" id="pesoAtividade" class="border border-black rounded-lg p-1">
+            </div>
+            <div class="flex justify-center mt-5">
+                <button type="submit"
+                    class="bg-green-300 hover:bg-green-800 px-2 py-1 rounded-lg text-white">Adicionar</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

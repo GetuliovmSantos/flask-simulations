@@ -28,7 +28,7 @@ ENGINE = InnoDB;
 
 -- Tabela: atividades
 CREATE TABLE IF NOT EXISTS `school-flask`.`atividades` (
-  `idAtividade` INT NOT NULL,
+  `idAtividade` INT NOT NULL AUTO_INCREMENT,
   `nomeAtividade` VARCHAR(45) NOT NULL,
   `descricaoAtividade` VARCHAR(45) NOT NULL,
   `dataAtividade` DATE NOT NULL,

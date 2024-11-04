@@ -18,7 +18,7 @@
             <a href="/adicionarTurma" class="bg-blue-300 hover:bg-blue-800 px-2 py-1 rounded-lg text-white">
                 Adicionar Turma
             </a>
-            <a href="/sair" class="bg-red-300 hover:bg-red-800 px-2 py-1 rounded-lg text-white">
+            <a href="/" class="bg-red-300 hover:bg-red-800 px-2 py-1 rounded-lg text-white">
                 Sair
             </a>
         </div>
@@ -31,6 +31,7 @@
                     <th class="border border-black p-2">--</th>
                     <th class="border border-black p-2">--</th>
                     <th class="border border-black p-2">--</th>
+                    <th class="border border-black p-2">--</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,9 +41,15 @@
                     <td class="border border-black p-2 text-center">{{turma["nomeTurma"]}}</td>
                     <td class="border border-black p-2 text-center">{{turma["periodoTurma"]}}</td>
                     <td class="border border-black p-2 text-center">
-                        <a href="/adicionarTarefa/{{turma['codTurma']}}"
+                        <a href="/adicionarAtividade/{{turma['codTurma']}}"
                             class="bg-green-300 hover:bg-green-800 px-2 py-1 rounded-lg text-white">
-                            Adicionar Tarefa
+                            Adicionar Atividade
+                        </a>
+                    </td>
+                    <td class="border border-black p-2 text-center">
+                        <a href="/verTarefas/{{turma['codTurma']}}"
+                            class="bg-blue-300 hover:bg-blue-800 px-2 py-1 rounded-lg text-white">
+                            Ver Tarefas
                         </a>
                     </td>
                     <td class="border border-black p-2 text-center">

@@ -77,5 +77,24 @@ def excluirTurma(codTurma):
     return redirect("/turmas")
 
 
+@app.route("/adicionarAtividade/<int:codTurma>")
+def adicionarAtividade(codTurma):
+    return render_template(
+        "adicionarAtividade.html", usuario=usuario, codTurma=codTurma
+    )
+
+
+@app.route("/salvarAtividade/<int:codTurma>", methods=["POST"])
+def salvarAtividade(codTurma):
+    nomeAtividade = request.form["nomeAtividade"]
+    descricaoAtividade = request.form["descricaoAtividade"]
+    pesoAtividade = request.form["pesoAtividade"]
+    dataAtividade = request.form["dataAtividade"]
+    bd.salvarAtividade(
+        nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade, codTurma
+    )
+    return redirect("/turmas")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
