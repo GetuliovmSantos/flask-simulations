@@ -38,3 +38,24 @@ class BD:
             }
         else:
             return {"error": "Usuário não encontrado"}
+        
+    def recuperarsenha(self, loginUsuario, senhaUsuario, cSenhaUsuario):
+        self.connect()
+        cursor = self._connection.cursor()
+        
+        cursor.execute(f"SELECT * FROM usuarios WHERE loginUsuario='{loginUsuario}'")
+        result = cursor.fetchone()
+        if result is None:
+            cursor.close()
+            self.close()
+            return {"error": "Usuário não encontrado"}
+        elif senhaUsuario != cSenhaUsuario:
+            cursor.close()
+            self.close()
+            return {"error": "As senhas não coincidem"}
+        else:
+            cursor.execute(f"UPDATE usuarios SET senhaUsuario='{senhaUsuario}' WHERE loginUsuario='{loginUsuario}'")
+            self._connection.commit()
+            cursor.close()
+            self.close()
+            return {"success": "Senha alterada com sucesso"}
