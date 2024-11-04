@@ -7,7 +7,7 @@ USE `school-flask`;
 
 -- Tabela: usuarios
 CREATE TABLE IF NOT EXISTS `school-flask`.`usuarios` (
-  `loginUsuario` VARCHAR(15) NOT NULL,
+  `loginUsuario` VARCHAR(10) NOT NULL,
   `nomeUsuario` VARCHAR(45) NOT NULL,
   `senhaUsuario` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`loginUsuario`))
@@ -16,10 +16,9 @@ ENGINE = InnoDB;
 -- Tabela: turmas
 CREATE TABLE IF NOT EXISTS `school-flask`.`turmas` (
   `codTurma` INT NOT NULL AUTO_INCREMENT,
-  `nomeTruma` VARCHAR(45) NULL,
-  `periodo` CHAR(1) NULL,
-  `turmascol` VARCHAR(45) NULL,
-  `loginUsuario` VARCHAR(15) NOT NULL,
+  `nomeTruma` VARCHAR(45) NOT NULL,
+  `periodoTurma` CHAR(1) NOT NULL,
+  `loginUsuario` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`codTurma`),
   FOREIGN KEY (`loginUsuario`)
     REFERENCES `school-flask`.`usuarios` (`loginUsuario`)
