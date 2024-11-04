@@ -3,6 +3,7 @@ from bd import BD
 
 app = Flask(__name__)
 bd = BD()
+usuario = None
 
 
 @app.route("/")
@@ -19,13 +20,15 @@ def index():
 
 @app.route("/logar", methods=["POST"])
 def logar():
+    global usuario
+
     login = request.form["login"]
     senha = request.form["senha"]
-    result = bd.login(login, senha)
-    if "error" in result:
-        return render_template("index.html", error=result["error"])
+    usuario = bd.login(login, senha)
+    if "error" in usuario:
+        return render_template("index.html", error=usuario["error"])
     else:
-        return render_template("turmas.html", result=result)
+        return redirect("/turmas")
 
 
 @app.route("/esqueciSenha")
@@ -45,6 +48,13 @@ def recuperarSenha():
         return render_template("esqueciSenha.html", error=result["error"])
     else:
         return redirect("/")
+
+
+@app.route("/turmas")
+def turmas():
+    turmas = bd.buscarTurmas(usuario["loginUsuario"])
+
+    return render_template("turmas.html", usuario=usuario, turmas=turmas)
 
 
 if __name__ == "__main__":

@@ -33,7 +33,8 @@ class BD:
         self.close()
         if result is not None:
             return {
-                'loginUsuario': result[1],
+                'loginUsuario': result[0],
+                'nomeUsuario': result[1],
                 'senhaUsuario': result[2]
             }
         else:
@@ -59,3 +60,24 @@ class BD:
             cursor.close()
             self.close()
             return {"success": "Senha alterada com sucesso"}
+        
+    def buscarTurmas(self, loginUsuario):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(f"SELECT * FROM turmas WHERE loginUsuario='{loginUsuario}'")
+        result = cursor.fetchall()
+        cursor.close()
+        self.close()
+
+        turmas = []
+
+        if len(result) > 0:
+            for turma in result:
+                turmas.append({
+                    'codTurma': turma[0],
+                    'nomeTurma': turma[1],
+                    'periodoTurma': turma[2],
+                })
+
+        return turmas
+

@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <!-- Metadados da página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Inclusão do Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-400 flex items-center justify-center flex-col">
+    <h1 class="text-5xl font-bold my-5">Bem Vindo {{usuario["nomeUsuario"]}}</h1>
+
+    <div id="containerTurmas" class="bg-white my-10 w-max py-5 px-10 border border-black rounded-lg">
+        <div id="botoesTurmas" class="flex justify-between px-10">
+            <a href="/adicionarTurma" class="bg-blue-300 hover:bg-blue-800 px-2 py-1 rounded-lg text-white">
+                Adicionar Turma
+            </a>
+            <a href="/sair" class="bg-red-300 hover:bg-red-800 px-2 py-1 rounded-lg text-white">
+                Sair
+            </a>
+        </div>
+        <table class="mt-5">
+            <thead>
+                <tr>
+                    <th class="border border-black p-2">Codigo</th>
+                    <th class="border border-black p-2">Nome</th>
+                    <th class="border border-black p-2">Periodo</th>
+                    <th class="border border-black p-2">--</th>
+                    <th class="border border-black p-2">--</th>
+                    <th class="border border-black p-2">--</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for turma in turmas %}
+                <tr>
+                    <td class="border border-black p-2 text-center">{{turma["codTurma"]}}</td>
+                    <td class="border border-black p-2 text-center">{{turma["nomeTurma"]}}</td>
+                    <td class="border border-black p-2 text-center">{{turma["periodoTurma"]}}</td>
+                    <td class="border border-black p-2 text-center">
+                        <a href="/adicionarTarefa/{{turma['codTurma']}}"
+                            class="bg-green-300 hover:bg-green-800 px-2 py-1 rounded-lg text-white">
+                            Adicionar Tarefa
+                        </a>
+                    </td>
+                    <td class="border border-black p-2 text-center">
+                        <a href="/editarTurma/{{turma['codTurma']}}"
+                            class="bg-yellow-200 hover:bg-yellow-800 px-2 py-1 rounded-lg text-white">
+                            Editar
+
+                        </a>
+                    </td>
+                    <td class="border border-black p-2 text-center">
+                        <a href="/excluirTurma/{{turma['codTurma']}}"
+                            class="bg-red-200 hover:bg-red-800 px-2 py-1 rounded-lg text-white">
+                            Excluir
+
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+        </table>
+</body>
+
+</html>
