@@ -96,5 +96,13 @@ def salvarAtividade(codTurma):
     return redirect("/turmas")
 
 
+@app.route("/verAtividades/<int:codTurma>")
+def verAtividades(codTurma):
+    atividades = bd.buscarAtividades(codTurma)
+    return render_template(
+        "verAtividades.html", usuario=usuario, atividades=atividades, codTurma=codTurma
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True)

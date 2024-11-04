@@ -123,3 +123,27 @@ class BD:
         cursor.close()
         self.close()
         return {"success": "Atividade adicionada com sucesso"}
+
+    def buscarAtividades(self, codTurma):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(f"SELECT * FROM atividades WHERE codTurma={codTurma}")
+        result = cursor.fetchall()
+        cursor.close()
+        self.close()
+
+        atividades = []
+
+        if len(result) > 0:
+            for atividade in result:
+                atividades.append(
+                    {
+                        "idAtividade": atividade[0],
+                        "nomeAtividade": atividade[1],
+                        "descricaoAtividade": atividade[2],
+                        "dataAtividade": atividade[3],
+                        "pesoAtividade": atividade[4],
+                    }
+                )
+
+        return atividades
