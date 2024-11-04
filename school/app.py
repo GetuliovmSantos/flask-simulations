@@ -56,9 +56,11 @@ def turmas():
 
     return render_template("turmas.html", usuario=usuario, turmas=turmas)
 
+
 @app.route("/adicionarTurma")
 def adicionarTurma():
     return render_template("adicionarTurma.html", usuario=usuario)
+
 
 @app.route("/salvarTurma", methods=["POST"])
 def salvarTurma():
@@ -67,6 +69,13 @@ def salvarTurma():
     bd.salvarTurma(usuario["loginUsuario"], nomeTurma, periodoTurma)
 
     return redirect("/turmas")
+
+
+@app.route("/excluirTurma/<int:codTurma>")
+def excluirTurma(codTurma):
+    bd.excluirTurma(codTurma)
+    return redirect("/turmas")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

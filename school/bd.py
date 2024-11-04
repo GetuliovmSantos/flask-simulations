@@ -1,6 +1,7 @@
 import mysql.connector
 import mysql.connector.errors
 
+
 class BD:
     _connection = None
 
@@ -13,13 +14,13 @@ class BD:
                 port="3306",
                 user="root",
                 password="",
-                database="school-flask"
+                database="school-flask",
             )
             return self._connection
         except mysql.connector.errors.ProgrammingError as e:
-            print('Error:', e)
-            return {'error': e}
-        
+            print("Error:", e)
+            return {"error": e}
+
     def close(self):
         self._connection.close()
         self._connection = None
@@ -27,23 +28,25 @@ class BD:
     def login(self, loginUsuario, senhaUsuario):
         self.connect()
         cursor = self._connection.cursor()
-        cursor.execute(f"SELECT * FROM usuarios WHERE loginUsuario='{loginUsuario}' AND senhaUsuario='{senhaUsuario}'")
+        cursor.execute(
+            f"SELECT * FROM usuarios WHERE loginUsuario='{loginUsuario}' AND senhaUsuario='{senhaUsuario}'"
+        )
         result = cursor.fetchone()
         cursor.close()
         self.close()
         if result is not None:
             return {
-                'loginUsuario': result[0],
-                'nomeUsuario': result[1],
-                'senhaUsuario': result[2]
+                "loginUsuario": result[0],
+                "nomeUsuario": result[1],
+                "senhaUsuario": result[2],
             }
         else:
             return {"error": "Usuário não encontrado"}
-        
+
     def recuperarsenha(self, loginUsuario, senhaUsuario, cSenhaUsuario):
         self.connect()
         cursor = self._connection.cursor()
-        
+
         cursor.execute(f"SELECT * FROM usuarios WHERE loginUsuario='{loginUsuario}'")
         result = cursor.fetchone()
         if result is None:
@@ -55,12 +58,14 @@ class BD:
             self.close()
             return {"error": "As senhas não coincidem"}
         else:
-            cursor.execute(f"UPDATE usuarios SET senhaUsuario='{senhaUsuario}' WHERE loginUsuario='{loginUsuario}'")
+            cursor.execute(
+                f"UPDATE usuarios SET senhaUsuario='{senhaUsuario}' WHERE loginUsuario='{loginUsuario}'"
+            )
             self._connection.commit()
             cursor.close()
             self.close()
             return {"success": "Senha alterada com sucesso"}
-        
+
     def buscarTurmas(self, loginUsuario):
         self.connect()
         cursor = self._connection.cursor()
@@ -73,19 +78,32 @@ class BD:
 
         if len(result) > 0:
             for turma in result:
-                turmas.append({
-                    'codTurma': turma[0],
-                    'nomeTurma': turma[1],
-                    'periodoTurma': turma[2],
-                })
+                turmas.append(
+                    {
+                        "codTurma": turma[0],
+                        "nomeTurma": turma[1],
+                        "periodoTurma": turma[2],
+                    }
+                )
 
         return turmas
 
     def salvarTurma(self, loginUsuario, nomeTurma, periodoTurma):
         self.connect()
         cursor = self._connection.cursor()
-        cursor.execute(f"INSERT INTO turmas (loginUsuario, nomeTurma, periodoTurma) VALUES ('{loginUsuario}', '{nomeTurma}', '{periodoTurma}')")
+        cursor.execute(
+            f"INSERT INTO turmas (loginUsuario, nomeTurma, periodoTurma) VALUES ('{loginUsuario}', '{nomeTurma}', '{periodoTurma}')"
+        )
         self._connection.commit()
         cursor.close()
         self.close()
         return {"success": "Turma adicionada com sucesso"}
+    
+    def excluirTurma(self, codTurma):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(f"DELETE FROM turmas WHERE codTurma={codTurma}")
+        self._connection.commit()
+        cursor.close()
+        self.close()
+        return {"success": "Turma excluída com sucesso"}
