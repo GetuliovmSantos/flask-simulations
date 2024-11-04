@@ -16,7 +16,7 @@ ENGINE = InnoDB;
 -- Tabela: turmas
 CREATE TABLE IF NOT EXISTS `school-flask`.`turmas` (
   `codTurma` INT NOT NULL AUTO_INCREMENT,
-  `nomeTruma` VARCHAR(45) NOT NULL,
+  `nomeTurma` VARCHAR(45) NOT NULL,
   `periodoTurma` CHAR(1) NOT NULL,
   `loginUsuario` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`codTurma`),
@@ -28,13 +28,13 @@ ENGINE = InnoDB;
 
 -- Tabela: atividades
 CREATE TABLE IF NOT EXISTS `school-flask`.`atividades` (
-  `idAtividades` INT NOT NULL,
+  `idAtividade` INT NOT NULL,
   `nomeAtividade` VARCHAR(45) NOT NULL,
   `descricaoAtividade` VARCHAR(45) NOT NULL,
   `dataAtividade` DATE NOT NULL,
   `pesoAtividade` INT NOT NULL,
   `codTurma` INT NOT NULL,
-  PRIMARY KEY (`idAtividades`),
+  PRIMARY KEY (`idAtividade`),
   FOREIGN KEY (`codTurma`)
     REFERENCES `school-flask`.`turmas` (`codTurma`)
     ON DELETE NO ACTION
