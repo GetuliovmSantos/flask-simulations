@@ -190,3 +190,35 @@ class BD:
         cursor.close()
         self.close()
         return {"success": "Atividade atualizada com sucesso"}
+    
+    def buscarTurma(self, codTurma):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(f"SELECT * FROM turmas WHERE codTurma={codTurma}")
+        result = cursor.fetchone()
+        cursor.close()
+        self.close()
+
+        if result is not None:
+            return {
+                "codTurma": result[0],
+                "nomeTurma": result[1],
+                "periodoTurma": result[2],
+            }
+        else:
+            return {"error": "Turma não encontrada"}
+
+    def atualizarTurma(self, codTurma, nomeTurma, periodoTurma):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(
+            f"""
+            UPDATE turmas
+            SET nomeTurma='{nomeTurma}', periodoTurma='{periodoTurma}'
+            WHERE codTurma={codTurma}
+        """
+        )
+        self._connection.commit()
+        cursor.close()
+        self.close()
+        return {"success": "Turma atualizada com sucesso"}

@@ -122,6 +122,17 @@ def atualizarAtividade(codAtividade):
     bd.atualizarAtividade(codAtividade, nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade)
     return redirect("/turmas")
 
+@app.route("/editarTurma/<int:codTurma>")
+def editarTurma(codTurma):
+    turma = bd.buscarTurma(codTurma)
+    return render_template("editarTurma.html", usuario=usuario, turma=turma, codTurma=codTurma)
+
+@app.route("/atualizarTurma/<int:codTurma>", methods=["POST"])
+def atualizarTurma(codTurma):
+    nomeTurma = request.form["nomeTurma"]
+    periodoTurma = request.form["periodoTurma"]
+    bd.atualizarTurma(codTurma, nomeTurma, periodoTurma)
+    return redirect("/turmas")
 
 if __name__ == "__main__":
     app.run(debug=True)
