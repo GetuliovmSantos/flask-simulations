@@ -103,6 +103,25 @@ def verAtividades(codTurma):
         "verAtividades.html", usuario=usuario, atividades=atividades, codTurma=codTurma
     )
 
+@app.route("/excluirAtividade/<int:codAtividade>")
+def excluirAtividade(codAtividade):
+    bd.excluirAtividade(codAtividade)
+    return redirect("/turmas")
+
+@app.route("/editarAtividade/<int:codAtividade>")
+def editarAtividade(codAtividade):
+    atividade = bd.buscarAtividade(codAtividade)
+    return render_template("editarAtividade.html", usuario=usuario, atividade=atividade, codAtividade=codAtividade)
+
+@app.route("/atualizarAtividade/<int:codAtividade>", methods=["POST"])
+def atualizarAtividade(codAtividade):
+    nomeAtividade = request.form["nomeAtividade"]
+    descricaoAtividade = request.form["descricaoAtividade"]
+    pesoAtividade = request.form["pesoAtividade"]
+    dataAtividade = request.form["dataAtividade"]
+    bd.atualizarAtividade(codAtividade, nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade)
+    return redirect("/turmas")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

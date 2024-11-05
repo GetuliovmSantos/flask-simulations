@@ -147,3 +147,46 @@ class BD:
                 )
 
         return atividades
+    
+    def excluirAtividade(self, idAtividade):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(f"DELETE FROM atividades WHERE idAtividade={idAtividade}")
+        self._connection.commit()
+        cursor.close()
+        self.close()
+        return {"success": "Atividade excluída com sucesso"}
+    
+    def buscarAtividade(self, idAtividade):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(f"SELECT * FROM atividades WHERE idAtividade={idAtividade}")
+        result = cursor.fetchone()
+        cursor.close()
+        self.close()
+
+        if result is not None:
+            return {
+                "idAtividade": result[0],
+                "nomeAtividade": result[1],
+                "descricaoAtividade": result[2],
+                "dataAtividade": result[3],
+                "pesoAtividade": result[4],
+            }
+        else:
+            return {"error": "Atividade não encontrada"}
+        
+    def atualizarAtividade(self, codAtividade, nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(
+            f"""
+            UPDATE atividades
+            SET nomeAtividade='{nomeAtividade}', descricaoAtividade='{descricaoAtividade}', dataAtividade='{dataAtividade}', pesoAtividade='{pesoAtividade}'
+            WHERE idAtividade={codAtividade}
+        """
+        )
+        self._connection.commit()
+        cursor.close()
+        self.close()
+        return {"success": "Atividade atualizada com sucesso"}
