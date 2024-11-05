@@ -25,6 +25,7 @@ class BD:
         self._connection.close()
         self._connection = None
 
+    # Métodos relacionados ao usuário
     def login(self, loginUsuario, senhaUsuario):
         self.connect()
         cursor = self._connection.cursor()
@@ -66,6 +67,7 @@ class BD:
             self.close()
             return {"success": "Senha alterada com sucesso"}
 
+    # Métodos relacionados às turmas
     def buscarTurmas(self, loginUsuario):
         self.connect()
         cursor = self._connection.cursor()
@@ -88,6 +90,23 @@ class BD:
 
         return turmas
 
+    def buscarTurma(self, codTurma):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(f"SELECT * FROM turmas WHERE codTurma={codTurma}")
+        result = cursor.fetchone()
+        cursor.close()
+        self.close()
+
+        if result is not None:
+            return {
+                "codTurma": result[0],
+                "nomeTurma": result[1],
+                "periodoTurma": result[2],
+            }
+        else:
+            return {"error": "Turma não encontrada"}
+
     def salvarTurma(self, loginUsuario, nomeTurma, periodoTurma):
         self.connect()
         cursor = self._connection.cursor()
@@ -108,22 +127,22 @@ class BD:
         self.close()
         return {"success": "Turma excluída com sucesso"}
 
-    def salvarAtividade(
-        self, nomeAtividade, descricaoAtividade, dataEntrega, pesoAtividade, codTurma
-    ):
+    def atualizarTurma(self, codTurma, nomeTurma, periodoTurma):
         self.connect()
         cursor = self._connection.cursor()
         cursor.execute(
             f"""
-            INSERT INTO atividades (nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade, codTurma)
-            VALUES ('{nomeAtividade}', '{descricaoAtividade}', '{dataEntrega}', '{pesoAtividade}', {codTurma})
+            UPDATE turmas
+            SET nomeTurma='{nomeTurma}', periodoTurma='{periodoTurma}'
+            WHERE codTurma={codTurma}
         """
         )
         self._connection.commit()
         cursor.close()
         self.close()
-        return {"success": "Atividade adicionada com sucesso"}
+        return {"success": "Turma atualizada com sucesso"}
 
+    # Métodos relacionados às atividades
     def buscarAtividades(self, codTurma):
         self.connect()
         cursor = self._connection.cursor()
@@ -147,16 +166,7 @@ class BD:
                 )
 
         return atividades
-    
-    def excluirAtividade(self, idAtividade):
-        self.connect()
-        cursor = self._connection.cursor()
-        cursor.execute(f"DELETE FROM atividades WHERE idAtividade={idAtividade}")
-        self._connection.commit()
-        cursor.close()
-        self.close()
-        return {"success": "Atividade excluída com sucesso"}
-    
+
     def buscarAtividade(self, idAtividade):
         self.connect()
         cursor = self._connection.cursor()
@@ -175,7 +185,32 @@ class BD:
             }
         else:
             return {"error": "Atividade não encontrada"}
-        
+
+    def salvarAtividade(
+        self, nomeAtividade, descricaoAtividade, dataEntrega, pesoAtividade, codTurma
+    ):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(
+            f"""
+            INSERT INTO atividades (nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade, codTurma)
+            VALUES ('{nomeAtividade}', '{descricaoAtividade}', '{dataEntrega}', '{pesoAtividade}', {codTurma})
+        """
+        )
+        self._connection.commit()
+        cursor.close()
+        self.close()
+        return {"success": "Atividade adicionada com sucesso"}
+
+    def excluirAtividade(self, idAtividade):
+        self.connect()
+        cursor = self._connection.cursor()
+        cursor.execute(f"DELETE FROM atividades WHERE idAtividade={idAtividade}")
+        self._connection.commit()
+        cursor.close()
+        self.close()
+        return {"success": "Atividade excluída com sucesso"}
+
     def atualizarAtividade(self, codAtividade, nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade):
         self.connect()
         cursor = self._connection.cursor()
@@ -190,35 +225,3 @@ class BD:
         cursor.close()
         self.close()
         return {"success": "Atividade atualizada com sucesso"}
-    
-    def buscarTurma(self, codTurma):
-        self.connect()
-        cursor = self._connection.cursor()
-        cursor.execute(f"SELECT * FROM turmas WHERE codTurma={codTurma}")
-        result = cursor.fetchone()
-        cursor.close()
-        self.close()
-
-        if result is not None:
-            return {
-                "codTurma": result[0],
-                "nomeTurma": result[1],
-                "periodoTurma": result[2],
-            }
-        else:
-            return {"error": "Turma não encontrada"}
-
-    def atualizarTurma(self, codTurma, nomeTurma, periodoTurma):
-        self.connect()
-        cursor = self._connection.cursor()
-        cursor.execute(
-            f"""
-            UPDATE turmas
-            SET nomeTurma='{nomeTurma}', periodoTurma='{periodoTurma}'
-            WHERE codTurma={codTurma}
-        """
-        )
-        self._connection.commit()
-        cursor.close()
-        self.close()
-        return {"success": "Turma atualizada com sucesso"}
