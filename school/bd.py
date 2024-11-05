@@ -5,6 +5,7 @@ import mysql.connector.errors
 class BD:
     _connection = None
 
+    # Método para conectar ao banco de dados
     def connect(self):
         try:
             if self._connection is not None:
@@ -21,11 +22,14 @@ class BD:
             print("Error:", e)
             return {"error": e}
 
+    # Método para fechar a conexão com o banco de dados
     def close(self):
         self._connection.close()
         self._connection = None
 
     # Métodos relacionados ao usuário
+
+    # Método para login do usuário
     def login(self, loginUsuario, senhaUsuario):
         self.connect()
         cursor = self._connection.cursor()
@@ -44,6 +48,7 @@ class BD:
         else:
             return {"error": "Usuário não encontrado"}
 
+    # Método para recuperação de senha do usuário
     def recuperarsenha(self, loginUsuario, senhaUsuario, cSenhaUsuario):
         self.connect()
         cursor = self._connection.cursor()
@@ -68,6 +73,8 @@ class BD:
             return {"success": "Senha alterada com sucesso"}
 
     # Métodos relacionados às turmas
+
+    # Método para buscar todas as turmas de um usuário
     def buscarTurmas(self, loginUsuario):
         self.connect()
         cursor = self._connection.cursor()
@@ -90,6 +97,7 @@ class BD:
 
         return turmas
 
+    # Método para buscar uma turma específica pelo código
     def buscarTurma(self, codTurma):
         self.connect()
         cursor = self._connection.cursor()
@@ -107,6 +115,7 @@ class BD:
         else:
             return {"error": "Turma não encontrada"}
 
+    # Método para salvar uma nova turma
     def salvarTurma(self, loginUsuario, nomeTurma, periodoTurma):
         self.connect()
         cursor = self._connection.cursor()
@@ -118,6 +127,7 @@ class BD:
         self.close()
         return {"success": "Turma adicionada com sucesso"}
 
+    # Método para excluir uma turma pelo código
     def excluirTurma(self, codTurma):
         self.connect()
         cursor = self._connection.cursor()
@@ -127,6 +137,7 @@ class BD:
         self.close()
         return {"success": "Turma excluída com sucesso"}
 
+    # Método para atualizar uma turma pelo código
     def atualizarTurma(self, codTurma, nomeTurma, periodoTurma):
         self.connect()
         cursor = self._connection.cursor()
@@ -143,6 +154,8 @@ class BD:
         return {"success": "Turma atualizada com sucesso"}
 
     # Métodos relacionados às atividades
+
+    # Método para buscar todas as atividades de uma turma
     def buscarAtividades(self, codTurma):
         self.connect()
         cursor = self._connection.cursor()
@@ -167,6 +180,7 @@ class BD:
 
         return atividades
 
+    # Método para buscar uma atividade específica pelo código
     def buscarAtividade(self, idAtividade):
         self.connect()
         cursor = self._connection.cursor()
@@ -186,6 +200,7 @@ class BD:
         else:
             return {"error": "Atividade não encontrada"}
 
+    # Método para salvar uma nova atividade
     def salvarAtividade(
         self, nomeAtividade, descricaoAtividade, dataEntrega, pesoAtividade, codTurma
     ):
@@ -202,6 +217,7 @@ class BD:
         self.close()
         return {"success": "Atividade adicionada com sucesso"}
 
+    # Método para excluir uma atividade pelo código
     def excluirAtividade(self, idAtividade):
         self.connect()
         cursor = self._connection.cursor()
@@ -211,7 +227,15 @@ class BD:
         self.close()
         return {"success": "Atividade excluída com sucesso"}
 
-    def atualizarAtividade(self, codAtividade, nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade):
+    # Método para atualizar uma atividade pelo código
+    def atualizarAtividade(
+        self,
+        codAtividade,
+        nomeAtividade,
+        descricaoAtividade,
+        dataAtividade,
+        pesoAtividade,
+    ):
         self.connect()
         cursor = self._connection.cursor()
         cursor.execute(
