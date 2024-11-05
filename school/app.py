@@ -6,6 +6,7 @@ bd = BD()
 usuario = None
 
 
+# Rotas relacionadas ao usuário
 @app.route("/")
 def index():
     connection = bd.connect()
@@ -50,6 +51,7 @@ def recuperarSenha():
         return redirect("/")
 
 
+# Rotas relacionadas às turmas
 @app.route("/turmas")
 def turmas():
     turmas = bd.buscarTurmas(usuario["loginUsuario"])
@@ -77,6 +79,23 @@ def excluirTurma(codTurma):
     return redirect("/turmas")
 
 
+@app.route("/editarTurma/<int:codTurma>")
+def editarTurma(codTurma):
+    turma = bd.buscarTurma(codTurma)
+    return render_template(
+        "editarTurma.html", usuario=usuario, turma=turma, codTurma=codTurma
+    )
+
+
+@app.route("/atualizarTurma/<int:codTurma>", methods=["POST"])
+def atualizarTurma(codTurma):
+    nomeTurma = request.form["nomeTurma"]
+    periodoTurma = request.form["periodoTurma"]
+    bd.atualizarTurma(codTurma, nomeTurma, periodoTurma)
+    return redirect("/turmas")
+
+
+# Rotas relacionadas às atividades
 @app.route("/adicionarAtividade/<int:codTurma>")
 def adicionarAtividade(codTurma):
     return render_template(
@@ -103,15 +122,23 @@ def verAtividades(codTurma):
         "verAtividades.html", usuario=usuario, atividades=atividades, codTurma=codTurma
     )
 
+
 @app.route("/excluirAtividade/<int:codAtividade>")
 def excluirAtividade(codAtividade):
     bd.excluirAtividade(codAtividade)
     return redirect("/turmas")
 
+
 @app.route("/editarAtividade/<int:codAtividade>")
 def editarAtividade(codAtividade):
     atividade = bd.buscarAtividade(codAtividade)
-    return render_template("editarAtividade.html", usuario=usuario, atividade=atividade, codAtividade=codAtividade)
+    return render_template(
+        "editarAtividade.html",
+        usuario=usuario,
+        atividade=atividade,
+        codAtividade=codAtividade,
+    )
+
 
 @app.route("/atualizarAtividade/<int:codAtividade>", methods=["POST"])
 def atualizarAtividade(codAtividade):
@@ -119,20 +146,11 @@ def atualizarAtividade(codAtividade):
     descricaoAtividade = request.form["descricaoAtividade"]
     pesoAtividade = request.form["pesoAtividade"]
     dataAtividade = request.form["dataAtividade"]
-    bd.atualizarAtividade(codAtividade, nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade)
+    bd.atualizarAtividade(
+        codAtividade, nomeAtividade, descricaoAtividade, dataAtividade, pesoAtividade
+    )
     return redirect("/turmas")
 
-@app.route("/editarTurma/<int:codTurma>")
-def editarTurma(codTurma):
-    turma = bd.buscarTurma(codTurma)
-    return render_template("editarTurma.html", usuario=usuario, turma=turma, codTurma=codTurma)
-
-@app.route("/atualizarTurma/<int:codTurma>", methods=["POST"])
-def atualizarTurma(codTurma):
-    nomeTurma = request.form["nomeTurma"]
-    periodoTurma = request.form["periodoTurma"]
-    bd.atualizarTurma(codTurma, nomeTurma, periodoTurma)
-    return redirect("/turmas")
 
 if __name__ == "__main__":
     app.run(debug=True)
