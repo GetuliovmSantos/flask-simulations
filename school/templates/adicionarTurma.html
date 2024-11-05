@@ -11,18 +11,26 @@
 </head>
 
 <body class="bg-gray-400 flex items-center justify-center flex-col">
+    <!-- Título da página -->
     <h1 class="text-5xl font-bold my-5">Adicionar Turma</h1>
 
+    <!-- Container principal -->
     <div id="containerAdicionarTurma" class="bg-white my-10 w-max py-5 px-10 border border-black rounded-lg">
+        <!-- Formulário para adicionar turma -->
         <form action="/salvarTurma" method="post">
+            <!-- Campo para o nome da turma -->
             <div id="nomeTurma" class="flex flex-col mt-5">
                 <label for="nomeTurma" class="text-2xl font-bold mb-2">Nome da Turma</label>
-                <input type="text" name="nomeTurma" id="nomeTurma" class="border-2 border-gray-400 rounded-md p-2" required>
+                <input type="text" name="nomeTurma" id="nomeTurma" class="border-2 border-gray-400 rounded-md p-2"
+                    required>
             </div>
+            <!-- Campo para o período da turma -->
             <div id="periodoTurma" class="flex flex-col mt-5">
                 <label for="periodoTurma" class="text-2xl font-bold mb-2">Periodo da Turma</label>
-                <input type="number" name="periodoTurma" id="periodoTurma" class="border-2 border-gray-400 rounded-md p-2" required>
+                <input type="number" name="periodoTurma" id="periodoTurma"
+                    class="border-2 border-gray-400 rounded-md p-2" required>
             </div>
+            <!-- Botão para submeter o formulário -->
             <div id="botaoAdicionarTurma" class="flex justify-center mt-5">
                 <button type="submit"
                     class="bg-blue-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-md">Adicionar</button>
@@ -30,4 +38,5 @@
         </form>
     </div>
 </body>
+
 </html>

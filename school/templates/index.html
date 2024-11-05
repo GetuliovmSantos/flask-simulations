@@ -27,17 +27,21 @@
 
         <!-- Formulário de login -->
         <form action="/logar" method="post">
+            <!-- Campo para o login -->
             <div id="loginIndex" class="flex flex-col mt-5">
                 <label for="login" class="text-2xl font-bold mb-2">Login</label>
                 <input type="text" name="login" id="login" class="border-2 border-gray-400 rounded-md p-2" required>
             </div>
+            <!-- Campo para a senha -->
             <div id="senhaLogin" class="flex flex-col mt-5">
                 <label for="senha" class="text-2xl font-bold mb-2">Senha</label>
                 <input type="password" name="senha" id="senha" class="border-2 border-gray-400 rounded-md p-2" required>
             </div>
+            <!-- Link para recuperação de senha -->
             <div id="esqueciSenhaLogin" class="mt-2">
                 <a href="/esqueciSenha" class="text-red-300 hover:text-red-800 my-5">Esqueci Minha Senha</a>
             </div>
+            <!-- Botão para submeter o formulário -->
             <div id="botaoLogin" class="flex justify-center mt-5">
                 <button type="submit"
                     class="bg-blue-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-md">Entrar</button>

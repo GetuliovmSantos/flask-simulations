@@ -10,27 +10,35 @@
 </head>
 
 <body class="bg-gray-400 flex items-center justify-center flex-col">
+    <!-- Título da página -->
     <h1 class="text-5xl font-bold my-5">Adicionar Tarefa</h1>
 
+    <!-- Container principal -->
     <div id="containerTurmas" class="bg-white my-10 w-max py-5 px-10 border border-black rounded-lg">
+        <!-- Formulário para adicionar atividade -->
         <form action="/salvarAtividade/{{codTurma}}" method="POST">
+            <!-- Campo para o nome da atividade -->
             <div class="flex flex-col">
                 <label for="nomeAtividade" class="text-2xl font-bold">Nome da Atividade</label>
                 <input type="text" name="nomeAtividade" id="nomeAtividade" class="border border-black rounded-lg p-1">
             </div>
+            <!-- Campo para a descrição da atividade -->
             <div class="flex flex-col mt-5">
                 <label for="descricaoAtividade" class="text-2xl font-bold">Descrição da Atividade</label>
                 <textarea name="descricaoAtividade" id="descricaoAtividade"
                     class="border border-black rounded-lg p-1"></textarea>
             </div>
+            <!-- Campo para a data de entrega da atividade -->
             <div class="flex flex-col mt-5">
                 <label for="dataAtividade" class="text-2xl font-bold">Data de Entrega</label>
                 <input type="date" name="dataAtividade" id="dataAtividade" class="border border-black rounded-lg p-1">
             </div>
+            <!-- Campo para o peso da atividade -->
             <div class="flex flex-col mt-5">
                 <label for="pesoAtividade" class="text-2xl font-bold">Peso da Atividade</label>
                 <input type="number" name="pesoAtividade" id="pesoAtividade" class="border border-black rounded-lg p-1">
             </div>
+            <!-- Botão para submeter o formulário -->
             <div class="flex justify-center mt-5">
                 <button type="submit"
                     class="bg-green-300 hover:bg-green-800 px-2 py-1 rounded-lg text-white">Adicionar</button>

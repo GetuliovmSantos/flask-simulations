@@ -11,9 +11,12 @@
 </head>
 
 <body class="bg-gray-400 flex items-center justify-center flex-col">
+    <!-- Título principal da página -->
     <h1 class="text-5xl font-bold my-5">Bem Vindo {{usuario["nomeUsuario"]}}</h1>
 
+    <!-- Container principal -->
     <div id="containerTurmas" class="bg-white my-10 w-max py-5 px-10 border border-black rounded-lg">
+        <!-- Botões de ação -->
         <div id="botoesTurmas" class="flex justify-between px-10">
             <a href="/adicionarTurma" class="bg-blue-300 hover:bg-blue-800 px-2 py-1 rounded-lg text-white">
                 Adicionar Turma
@@ -22,6 +25,7 @@
                 Sair
             </a>
         </div>
+        <!-- Tabela de turmas -->
         <table class="mt-5">
             <thead>
                 <tr>
@@ -35,6 +39,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Iteração sobre as turmas -->
                 {% for turma in turmas %}
                 <tr>
                     <td class="border border-black p-2 text-center">{{turma["codTurma"]}}</td>
@@ -56,19 +61,19 @@
                         <a href="/editarTurma/{{turma['codTurma']}}"
                             class="bg-yellow-200 hover:bg-yellow-800 px-2 py-1 rounded-lg text-white">
                             Editar
-
                         </a>
                     </td>
                     <td class="border border-black p-2 text-center">
                         <a href="/excluirTurma/{{turma['codTurma']}}"
                             class="bg-red-200 hover:bg-red-800 px-2 py-1 rounded-lg text-white">
                             Excluir
-
                         </a>
                     </td>
                 </tr>
                 {% endfor %}
+            </tbody>
         </table>
+    </div>
 </body>
 
 </html>

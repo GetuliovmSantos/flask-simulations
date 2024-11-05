@@ -11,17 +11,20 @@
 </head>
 
 <body class="bg-gray-400 flex items-center justify-center flex-col">
+    <!-- Título principal da página -->
     <h1 class="text-5xl font-bold my-5">atividades</h1>
 
+    <!-- Container principal -->
     <div id="containerAdicionarTurma" class="bg-white my-10 w-max py-5 px-10 border border-black rounded-lg">
+        <!-- Botão para voltar -->
         <div id="botaoAtividades" class="flex justify-between px-10">
             <a href="/turmas" class="bg-red-300 hover:bg-red-800 px-2 py-1 rounded-lg text-white">
                 Voltar
             </a>
         </div>
+        <!-- Tabela de atividades -->
         <table class="mt-5">
             <thead>
-                <tr>
                 <tr>
                     <th class="border border-black p-2">Nome</th>
                     <th class="border border-black p-2">Descrição</th>
@@ -30,9 +33,9 @@
                     <th class="border border-black p-2">--</th>
                     <th class="border border-black p-2">--</th>
                 </tr>
-                </tr>
             </thead>
             <tbody>
+                <!-- Iteração sobre as atividades -->
                 {% for atividade in atividades %}
                 <tr>
                     <td class="border border-black p-2 text-center">{{atividade["nomeAtividade"]}}</td>
@@ -54,6 +57,8 @@
                 </tr>
                 {% endfor %}
             </tbody>
+        </table>
+    </div>
 </body>
 
 </html>

@@ -22,29 +22,35 @@
             <a href="/esqueciSenha" class="text-red-300 hover:text-red-800 my-5 text-3xl">Tentar Novamente</a>
         </div>
         {% else %}
-        <!-- Formulário de login -->
+        <!-- Formulário de recuperação de senha -->
         <form action="/recuperarSenha" method="post">
+            <!-- Campo para o login -->
             <div id="loginIndex" class="flex flex-col mt-5">
                 <label for="login" class="text-2xl font-bold mb-2">Login</label>
                 <input type="text" name="login" id="login" class="border-2 border-gray-400 rounded-md p-2" required>
             </div>
+            <!-- Campo para a nova senha -->
             <div id="senhaLogin" class="flex flex-col mt-5">
                 <label for="senha" class="text-2xl font-bold mb-2">Nova Senha</label>
                 <input type="password" name="senha" id="senha" class="border-2 border-gray-400 rounded-md p-2" required>
             </div>
+            <!-- Campo para confirmar a nova senha -->
             <div id="senhaLogin" class="flex flex-col mt-5">
                 <label for="cSenha" class="text-2xl font-bold mb-2">Confirme a Nova Senha</label>
                 <input type="password" name="cSenha" id="cSenha" class="border-2 border-gray-400 rounded-md p-2"
                     required>
             </div>
+            <!-- Botões para submeter o formulário e voltar -->
             <div id="botoes" class="flex justify-center mt-5">
                 <button type="submit"
                     class="bg-blue-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-md">Alterar
                     Senha</button>
-                <a href="/" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md ml-5">Voltar</a>
+                <a href="/"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md ml-5">Voltar</a>
             </div>
         </form>
         {% endif %}
+    </div>
 </body>
 
 </html>
