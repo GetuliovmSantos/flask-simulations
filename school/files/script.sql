@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS `school-flask`.`turmas` (
   PRIMARY KEY (`codTurma`),
   FOREIGN KEY (`loginUsuario`)
     REFERENCES `school-flask`.`usuarios` (`loginUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 -- Tabela: atividades
@@ -37,6 +37,6 @@ CREATE TABLE IF NOT EXISTS `school-flask`.`atividades` (
   PRIMARY KEY (`idAtividade`),
   FOREIGN KEY (`codTurma`)
     REFERENCES `school-flask`.`turmas` (`codTurma`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
